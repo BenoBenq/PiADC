@@ -76,11 +76,9 @@ void *thread_read_shm(void *arg) {
 
 	sem_id = semget(   (key_t) 1133 ,  1  ,  0666 | IPC_CREAT );
 
-	char data[5];
 	for(;;) {
 		(void) semaphore_p();
-		sprintf(data, "%d", shmB->data);
-		write(client_sockfd, data, 5);
+		write(client_sockfd, &shmB->data, sizeof(data));
 		usleep(100);
 		(void) semaphore_v();
 	}
