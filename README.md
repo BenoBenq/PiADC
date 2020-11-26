@@ -17,7 +17,7 @@ On the local pc:
 ./pc on local pc
 ```
 Then you should see the readings of the ADC in the dataAq terminal und nothing happening in the other both.
-To start the plotting of the data simply type in ```p``` into the pc terminal and hit enter.
+To start the plotting of the data simply type ```p``` into the pc terminal and hit enter.
 Gnuplot should start and plot the incoming data. To trigger the LED for one second type ```s``` into the pc terminal and hit enter.
 
 To quit type ```q``` and hit enter.
