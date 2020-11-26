@@ -14,7 +14,7 @@ struct shm_structure *shmB;
 int shmid;
 
 struct shm_structure {
-	int data;
+	int data[10];
 };
 
 void endfunc(int signo);
@@ -41,21 +41,24 @@ int main() {
     shmid = shmget((key_t)1243, sizeof(struct shm_structure), 0666 | IPC_CREAT);
     shared_memory_point = shmat(shmid, (void *)0, 0);
     shmB = (struct shm_structure *)shared_memory_point;
+
 	while(1) {
-		data[0] = 1;
-		data[1] = 0b10000000;
-		data[2] = 0;
-		spiWriteRead(fd, data, sizeof(data), spi_set);
-		int a2dVal = 0;
-		a2dVal = data[1] << 8;
-		a2dVal |=  data[2];
-		printf("%d\n", a2dVal);
+		int *shmPtr = shmB->data;
+		(void) semaphore_p();
+		while(shmPtr < &shmB->data[10]) {
+			data[0] = 1;
+			data[1] = 0b10000000;
+			data[2] = 0;
+			spiWriteRead(fd, data, sizeof(data), spi_set);
+			int a2dVal = 0;
+			a2dVal = data[1] << 8;
+			a2dVal |=  data[2];
+			printf("%d\n", a2dVal);
 
-
-
-        (void) semaphore_p();
-    	shmB->data = a2dVal;
-        (void) semaphore_v();
+	    	*shmPtr = a2dVal;
+			shmPtr++;
+		}
+		(void) semaphore_v();
 	}
 }
 
