@@ -22,4 +22,4 @@ To start the plotting of the data simply type ```p``` into the pc terminal and h
 Gnuplot should start and plot the incoming data. To trigger the LED for one second type ```s``` into the pc terminal and hit enter.
 
 To quit type ```q``` and hit enter.
-You have to manually stop the dataAq programm with cntrl+c.
+You have to manually stop the dataAq programm with ctrl+c.
