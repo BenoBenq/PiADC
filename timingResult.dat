@@ -1,0 +1,165 @@
+Mean of 10000
+Waited 0 usec, resulting in: 66 +- 2.486407 (tics from system timer from bcm2835)
+Waited 0 usec, resulting in: 67 +- 2.432507 (useconds measured by linux time)
+
+Waited 1 usec, resulting in: 68 +- 3.150372 (tics from system timer from bcm2835)
+Waited 1 usec, resulting in: 68 +- 2.778582 (useconds measured by linux time)
+
+Waited 2 usec, resulting in: 74 +- 5.797549 (tics from system timer from bcm2835)
+Waited 2 usec, resulting in: 75 +- 5.725142 (useconds measured by linux time)
+
+Waited 3 usec, resulting in: 78 +- 4.909755 (tics from system timer from bcm2835)
+Waited 3 usec, resulting in: 79 +- 3.718045 (useconds measured by linux time)
+
+Waited 4 usec, resulting in: 79 +- 3.564458 (tics from system timer from bcm2835)
+Waited 4 usec, resulting in: 80 +- 4.899099 (useconds measured by linux time)
+
+Waited 5 usec, resulting in: 80 +- 3.882160 (tics from system timer from bcm2835)
+Waited 5 usec, resulting in: 81 +- 4.145046 (useconds measured by linux time)
+
+Waited 6 usec, resulting in: 81 +- 3.777170 (tics from system timer from bcm2835)
+Waited 6 usec, resulting in: 82 +- 4.578352 (useconds measured by linux time)
+
+Waited 7 usec, resulting in: 82 +- 4.702817 (tics from system timer from bcm2835)
+Waited 7 usec, resulting in: 83 +- 3.830186 (useconds measured by linux time)
+
+Waited 8 usec, resulting in: 83 +- 3.192129 (tics from system timer from bcm2835)
+Waited 8 usec, resulting in: 84 +- 4.525465 (useconds measured by linux time)
+
+Waited 9 usec, resulting in: 84 +- 4.842310 (tics from system timer from bcm2835)
+Waited 9 usec, resulting in: 85 +- 3.807348 (useconds measured by linux time)
+
+
+
+Mean of 10000
+Waited 0 usec, resulting in: 75 +- 4.092576 (tics from system timer from bcm2835)
+Waited 0 usec, resulting in: 76 +- 3.842041 (useconds measured by linux time)
+
+Waited 10 usec, resulting in: 85 +- 3.862784 (tics from system timer from bcm2835)
+Waited 10 usec, resulting in: 87 +- 5.774515 (useconds measured by linux time)
+
+Waited 20 usec, resulting in: 95 +- 3.660905 (tics from system timer from bcm2835)
+Waited 20 usec, resulting in: 96 +- 4.634623 (useconds measured by linux time)
+
+Waited 30 usec, resulting in: 105 +- 4.436286 (tics from system timer from bcm2835)
+Waited 30 usec, resulting in: 106 +- 3.747261 (useconds measured by linux time)
+
+Waited 40 usec, resulting in: 115 +- 4.062117 (tics from system timer from bcm2835)
+Waited 40 usec, resulting in: 116 +- 3.554889 (useconds measured by linux time)
+
+Waited 50 usec, resulting in: 125 +- 3.219494 (tics from system timer from bcm2835)
+Waited 50 usec, resulting in: 126 +- 3.730596 (useconds measured by linux time)
+
+Waited 60 usec, resulting in: 135 +- 5.465703 (tics from system timer from bcm2835)
+Waited 60 usec, resulting in: 136 +- 3.694826 (useconds measured by linux time)
+
+Waited 70 usec, resulting in: 145 +- 3.616318 (tics from system timer from bcm2835)
+Waited 70 usec, resulting in: 146 +- 4.261101 (useconds measured by linux time)
+
+Waited 80 usec, resulting in: 155 +- 4.051889 (tics from system timer from bcm2835)
+Waited 80 usec, resulting in: 157 +- 3.702607 (useconds measured by linux time)
+
+Waited 90 usec, resulting in: 165 +- 4.410210 (tics from system timer from bcm2835)
+Waited 90 usec, resulting in: 167 +- 5.217949 (useconds measured by linux time)
+
+
+
+Mean of 1000
+Waited 0 usec, resulting in: 73 +- 4.063929 (tics from system timer from bcm2835)
+Waited 0 usec, resulting in: 74 +- 2.554315 (useconds measured by linux time)
+
+Waited 100 usec, resulting in: 175 +- 1.657652 (tics from system timer from bcm2835)
+Waited 100 usec, resulting in: 177 +- 5.111622 (useconds measured by linux time)
+
+Waited 200 usec, resulting in: 276 +- 2.678027 (tics from system timer from bcm2835)
+Waited 200 usec, resulting in: 277 +- 2.846439 (useconds measured by linux time)
+
+Waited 300 usec, resulting in: 376 +- 1.959724 (tics from system timer from bcm2835)
+Waited 300 usec, resulting in: 377 +- 2.552129 (useconds measured by linux time)
+
+Waited 400 usec, resulting in: 476 +- 2.837430 (tics from system timer from bcm2835)
+Waited 400 usec, resulting in: 478 +- 1.801332 (useconds measured by linux time)
+
+Waited 500 usec, resulting in: 577 +- 2.006954 (tics from system timer from bcm2835)
+Waited 500 usec, resulting in: 578 +- 3.586176 (useconds measured by linux time)
+
+Waited 600 usec, resulting in: 677 +- 4.728463 (tics from system timer from bcm2835)
+Waited 600 usec, resulting in: 678 +- 3.352734 (useconds measured by linux time)
+
+Waited 700 usec, resulting in: 777 +- 3.182901 (tics from system timer from bcm2835)
+Waited 700 usec, resulting in: 778 +- 2.409597 (useconds measured by linux time)
+
+Waited 800 usec, resulting in: 877 +- 2.178056 (tics from system timer from bcm2835)
+Waited 800 usec, resulting in: 879 +- 3.294429 (useconds measured by linux time)
+
+Waited 900 usec, resulting in: 978 +- 3.238621 (tics from system timer from bcm2835)
+Waited 900 usec, resulting in: 979 +- 3.602259 (useconds measured by linux time)
+
+
+
+Mean of 1000
+Waited 0 usec, resulting in: 66 +- 3.206132 (tics from system timer from bcm2835)
+Waited 0 usec, resulting in: 67 +- 2.365924 (useconds measured by linux time)
+
+Waited 100 usec, resulting in: 174 +- 7.404595 (tics from system timer from bcm2835)
+Waited 100 usec, resulting in: 175 +- 4.926626 (useconds measured by linux time)
+
+Waited 200 usec, resulting in: 277 +- 6.127230 (tics from system timer from bcm2835)
+Waited 200 usec, resulting in: 278 +- 4.704472 (useconds measured by linux time)
+
+Waited 300 usec, resulting in: 377 +- 4.549926 (tics from system timer from bcm2835)
+Waited 300 usec, resulting in: 378 +- 3.994328 (useconds measured by linux time)
+
+Waited 400 usec, resulting in: 477 +- 7.731386 (tics from system timer from bcm2835)
+Waited 400 usec, resulting in: 479 +- 4.536030 (useconds measured by linux time)
+
+Waited 500 usec, resulting in: 578 +- 11.567564 (tics from system timer from bcm2835)
+Waited 500 usec, resulting in: 579 +- 5.299209 (useconds measured by linux time)
+
+Waited 600 usec, resulting in: 678 +- 6.501064 (tics from system timer from bcm2835)
+Waited 600 usec, resulting in: 679 +- 4.652197 (useconds measured by linux time)
+
+Waited 700 usec, resulting in: 778 +- 5.417920 (tics from system timer from bcm2835)
+Waited 700 usec, resulting in: 780 +- 4.482270 (useconds measured by linux time)
+
+Waited 800 usec, resulting in: 878 +- 6.722322 (tics from system timer from bcm2835)
+Waited 800 usec, resulting in: 880 +- 7.470361 (useconds measured by linux time)
+
+Waited 900 usec, resulting in: 979 +- 6.233746 (tics from system timer from bcm2835)
+Waited 900 usec, resulting in: 980 +- 5.609004 (useconds measured by linux time)
+
+
+
+Mean of 1000
+Waited 0 usec, resulting in: 66 +- 3.458752 (tics from system timer from bcm2835)
+Waited 0 usec, resulting in: 66 +- 2.466594 (useconds measured by linux time)
+
+Waited 10000 usec, resulting in: 10083 +- 7.756135 (tics from system timer from bcm2835)
+Waited 10000 usec, resulting in: 10084 +- 7.475383 (useconds measured by linux time)
+
+Waited 20000 usec, resulting in: 20083 +- 7.865916 (tics from system timer from bcm2835)
+Waited 20000 usec, resulting in: 20085 +- 8.390881 (useconds measured by linux time)
+
+Waited 30000 usec, resulting in: 30084 +- 6.778555 (tics from system timer from bcm2835)
+Waited 30000 usec, resulting in: 30086 +- 6.384681 (useconds measured by linux time)
+
+Waited 40000 usec, resulting in: 40084 +- 5.487065 (tics from system timer from bcm2835)
+Waited 40000 usec, resulting in: 40086 +- 4.052877 (useconds measured by linux time)
+
+Waited 50000 usec, resulting in: 50086 +- 10.409699 (tics from system timer from bcm2835)
+Waited 50000 usec, resulting in: 50087 +- 6.902514 (useconds measured by linux time)
+
+Waited 60000 usec, resulting in: 60085 +- 6.383115 (tics from system timer from bcm2835)
+Waited 60000 usec, resulting in: 60087 +- 6.251238 (useconds measured by linux time)
+
+Waited 70000 usec, resulting in: 70085 +- 5.727144 (tics from system timer from bcm2835)
+Waited 70000 usec, resulting in: 70087 +- 6.555854 (useconds measured by linux time)
+
+Waited 80000 usec, resulting in: 80085 +- 6.100815 (tics from system timer from bcm2835)
+Waited 80000 usec, resulting in: 80087 +- 5.323053 (useconds measured by linux time)
+
+Waited 90000 usec, resulting in: 90085 +- 6.351964 (tics from system timer from bcm2835)
+Waited 90000 usec, resulting in: 90088 +- 7.650873 (useconds measured by linux time)
+
+
+
