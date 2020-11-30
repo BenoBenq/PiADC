@@ -1,0 +1,119 @@
+\documentclass[12pt,paper=a4,twoside]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{ae,aecompl}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{color}
+%\usepackage{xcolor}
+\usepackage{epstopdf}
+\usepackage{url}
+%\usepackage{bbm}
+\usepackage{listings}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage[hidelinks]{hyperref}
+\usepackage{booktabs}
+\usepackage{pdfpages}
+%\usepackage{bbold}
+\usepackage[english]{babel}
+\usepackage{amssymb}
+%\usepackage{dsfont}
+\usepackage{physics}
+\usepackage{subcaption}
+\usepackage{siunitx}
+\usepackage{tabularx,multirow}
+\sisetup{output-exponent-marker=\ensuremath{\mathrm{e}}}
+%\usepackage[showframe]{geometry}
+\numberwithin{equation}{section}
+%\numberwithin{figure}{section}
+\usepackage{listings}
+%\usepackage{biblatex}
+
+\usepackage[
+backend=bibtex,
+sorting=none,
+style=numeric,
+url=false,
+giveninits
+]{biblatex}
+% Suppress month, number. 
+\AtEveryBibitem{%
+  \clearfield{month}%
+}
+% Don't do anything weird with journal name (default is italics).
+\DeclareFieldFormat{journaltitle}{#1}
+% Don't do anything weird with pages (default has pp in front).
+\DeclareFieldFormat{pages}{#1}
+% This block of code determines what kinds of fields you want in your
+% bibliography entry, and it determines the order.
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{author/translator+others}%
+  \addperiod\space
+  \usebibmacro{title}%
+  \usebibmacro{journal}%
+  \addcomma
+  \usebibmacro{volume+number+eid}%
+  \usebibmacro{note+pages}%
+  \usebibmacro{issue+date}%
+  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{finentry}}
+
+%\addbibresource{Literatur.bib}
+
+\makeindex
+
+\newcommand{\minus}{\scalebox{0.7}[0.9]{$-$}}
+\newcommand{\mal}{\scalebox{0.7}[0.9]{$\cdot$}}
+\newcommand{\rsmear}{r_\text{smear}}
+%\DeclareMathOperator{\Tr}{Tr}
+\renewcommand{\Re}{\mathop{\mathrm{Re}}}
+\newcommand{\id}{{\mathbf 1}}
+
+
+\usepackage{wrapfig}
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+
+\definecolor{DARKbackcolour}{rgb}{0.16,0.17,0.2}
+\definecolor{DARKcodecolor}{rgb}{0.67,0.70,0.75}
+\definecolor{DARKnumbersgray}{rgb}{0.29,0.33,0.39}
+\definecolor{DARKcodepurple}{rgb}{0.33,0.71,0.76}
+\definecolor{DARKstringcolor}{rgb}{0.54,0.73,0.47}
+\definecolor{DARKcommentcolor}{rgb}{0.36,0.39,0.41}
+
+\definecolor{WHITEbackcolour}{rgb}{0.98,0.98,0.98}
+\definecolor{WHITEcodecolor}{rgb}{0.22,0.23,0.26}
+\definecolor{WHITEnumbersgray}{rgb}{0.76,0.76,0.76}
+\definecolor{WHITEcodepurple}{rgb}{0.65,0.15,0.64}
+\definecolor{WHITEstringcolor}{rgb}{0.31,0.63,0.31}
+\definecolor{WHITEcommentcolor}{rgb}{0.63,0.63,0.65}
+
+\lstdefinestyle{dark}{
+    backgroundcolor=\color{DARKbackcolour},   
+    numbers=left,
+    numberstyle=\color{black},
+    basicstyle=\color{DARKcodecolor}\ttfamily\small,
+    keywordstyle=\color{DARKcodepurple},
+    stringstyle=\color{DARKstringcolor},
+    breaklines=true,
+    tabsize=2,
+    commentstyle=\color{DARKcommentcolor},
+    %showspaces=true,
+    %showtabs=true
+}
+\lstdefinestyle{white}{
+    backgroundcolor=\color{WHITEbackcolour},   
+    numbers=left,
+    numberstyle=\color{black},
+    basicstyle=\color{WHITEcodecolor}\ttfamily\small,
+    keywordstyle=\color{WHITEcodepurple},
+    stringstyle=\color{WHITEstringcolor},
+    breaklines=true,
+    tabsize=2,
+    commentstyle=\color{WHITEcommentcolor},
+}
+
+\lstset{style=dark}
+
+\begin{document}
+\lstinputlisting[language=C, firstline=1]{../pc.c}
+\end{document}
