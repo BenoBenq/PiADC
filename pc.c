@@ -28,7 +28,7 @@ int main (int argc, char *argv[])
 	len = sizeof(address);
 	result=connect(sockfd, (struct sockaddr *) &address, len);
 	if (result == -1) {
-		perror("oops: client2");
+		perror("ERROR: couldn't connect!");
 		exit(1);
 	}
 	//
@@ -41,7 +41,7 @@ int main (int argc, char *argv[])
 	int gnuplotCreated;
 
 	for(;;) {
-		//IF ladder for choosing what to do
+		//IF ladder for choosing what to do upon user input
 		char input[10];
 		fgets(input, 10, stdin);
 		if(strcmp(input, "s\n") == 0) {
