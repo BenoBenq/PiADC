@@ -18,7 +18,7 @@ void *thread_TurnOnLED(void *arg);
 void *thread_read_shm(void *arg);
 
 struct shm_structure {
-	int data;
+	int data[10];
 };
 
 
@@ -76,10 +76,19 @@ void *thread_read_shm(void *arg) {
 	//initialize semaphore
 	sem_id = semget(   (key_t) 1133 ,  1  ,  0666 | IPC_CREAT );
 
+	int data[10];
 	for(;;) {
+		int *ptr = data;
+		int *shmPtr = shmB->data;
 		//get data from shared memory, then send to client
 		(void) semaphore_p();
-		write(client_sockfd, &shmB->data, sizeof(data));
+		while(shmPtr < &shmB->data[10]) {
+			*ptr = *shmPtr;
+			ptr++;
+			shmPtr++;
+		}
+
+		write(client_sockfd, data, sizeof(data));
 		usleep(100);
 		(void) semaphore_v();
 	}

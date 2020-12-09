@@ -69,11 +69,16 @@ int main (int argc, char *argv[])
 //THREAD// recieving data from pi
 //#ClientRecievingThreadB
 void *thread_recieveData(void *arg) {
-	int recieve;
+	int recieve[10];
 	FILE *file = fopen("recieve.d", "w");
+
 	for(;;) {
+    int *ptr = recieve;
 		read(sockfd, &recieve, sizeof(recieve));
-		fprintf(file, "%d\n", recieve);
+		while(ptr < &recieve[10]) {
+			fprintf(file, "%d\n", *ptr);
+			ptr++;
+		}
 		fflush(file);
 	}
 	fclose(file);

@@ -12,7 +12,7 @@ int shmid;
 //shared memory structure
 //TODO put into own header file
 struct shm_structure {
-	int data;
+	int data[10];
 };
 //#SharedMemoryStrucE
 
@@ -48,26 +48,28 @@ int main() {
 	shared_memory_point = shmat(shmid, (void *)0, 0);
 	shmB = (struct shm_structure *)shared_memory_point;
 
-
 	for(;;) {
-		//send and recieve bytes to/from ADC
+    //send and recieve bytes to/from ADC
 		//#ReadSPIdeviceB
-		data[0] = 1; 			//1
-		data[1] = 0b10000000;	//selects first input of ADC
-		data[2] = 0;			//-
-		spiWriteRead(fd, data, sizeof(data), spi_set);
-		//merge the incomming data
-		int a2dVal = 0;
-		a2dVal = data[1] << 8;
-		a2dVal |=  data[2];
-
-		printf("%d\n", a2dVal);
-
-		//Save in secured shared memory
-		(void) semaphore_p();	//ask for access
-		shmB->data = a2dVal;
-		(void) semaphore_v();	//free access to shared memory
-		//#ReadSPIdeviceE
+		int *shmPtr = shmB->data;
+		(void) semaphore_p();  //ask for access
+		while(shmPtr < &shmB->data[10]) {
+			data[0] = 1;          //1
+			data[1] = 0b10000000; //selects first input of ADC
+			data[2] = 0;          //0
+			spiWriteRead(fd, data, sizeof(data), spi_set);
+      //merge the incomming data
+			int a2dVal = 0;
+			a2dVal = data[1] << 8;
+			a2dVal |=  data[2];
+      
+			printf("%d\n", a2dVal);
+      //Save in secured shared memory
+	    *shmPtr = a2dVal;
+			shmPtr++;
+		}
+		(void) semaphore_v(); //free access to shared memory
+    //#ReadSPIdeviceE
 	}
 }
 

@@ -48,10 +48,7 @@ static int semaphore_p(void)
     sem_b.sem_flg = SEM_UNDO;
 	int answer;
 
-	answer = semop(sem_id, &sem_b, 1);
-    if (answer == -1) {
-        printf( "The semaphore is \033[1;41m RED \033[0m, I must wait \n");
-    }
+	semop(sem_id, &sem_b, 1);
 }
 
 static int semaphore_v(void)
@@ -62,10 +59,7 @@ static int semaphore_v(void)
     sem_b.sem_op = 1;
     sem_b.sem_flg = SEM_UNDO;
 
-	answer = semop(sem_id, &sem_b, 1) ;
-    if ( answer == -1) {
-        printf("ERROR: Attempting V: set semaphore to 1 semaphore_v failed \n");
-        return(0);
-    }
+    semop(sem_id, &sem_b, 1) ;
+
     return(1);
 }
