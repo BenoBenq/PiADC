@@ -18,21 +18,23 @@ void *thread_sendSignal(void *arg);
 
 int main (int argc, char *argv[])
 {
+	//#ClientSocketB
 	//Socket setup
 	int result, len;
 	struct sockaddr_in address;
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    address.sin_family = AF_INET;
-    address.sin_addr.s_addr = inet_addr("192.168.0.142");
-    address.sin_port = htons(9734);
-    len = sizeof(address);
-    result=connect(sockfd, (struct sockaddr *) &address, len);
+	sockfd = socket(AF_INET, SOCK_STREAM, 0);
+	address.sin_family = AF_INET;
+	address.sin_addr.s_addr = inet_addr("192.168.0.142");
+	address.sin_port = htons(9734);
+	len = sizeof(address);
+	result=connect(sockfd, (struct sockaddr *) &address, len);
 	if (result == -1) {
-	   perror("oops: client2");
-	   exit(1);
+		perror("ERROR: couldn't connect!");
+		exit(1);
 	}
-	//
+	//#ClientSocketE
 
+	//#ClientStartThreadB
 	//Start threads
 	pthread_t recieveThread;
 	pthread_t sendThread;
@@ -40,10 +42,10 @@ int main (int argc, char *argv[])
 	pthread_create(&sendThread, NULL, thread_sendSignal, NULL);
 	int gnuplotCreated;
 
-	while(1) {
+	for(;;) {
+		//IF ladder for choosing what to do upon user input
 		char input[10];
 		fgets(input, 10, stdin);
-
 		if(strcmp(input, "s\n") == 0) {
 			sendState = 1;
 		} else if(strcmp(input, "q\n") == 0) {
@@ -59,16 +61,19 @@ int main (int argc, char *argv[])
 
 	}
 	printf("Closing Socket!\n");
-    close(sockfd);
-    exit(0);
+	close(sockfd);
+	exit(0);
+	//#ClientStartThreadE
 }
 
-//Recieving data from pi
+//THREAD// recieving data from pi
+//#ClientRecievingThreadB
 void *thread_recieveData(void *arg) {
 	int recieve[10];
 	FILE *file = fopen("recieve.d", "w");
-	while(1) {
-		int *ptr = recieve;
+
+	for(;;) {
+    int *ptr = recieve;
 		read(sockfd, &recieve, sizeof(recieve));
 		while(ptr < &recieve[10]) {
 			fprintf(file, "%d\n", *ptr);
@@ -78,10 +83,12 @@ void *thread_recieveData(void *arg) {
 	}
 	fclose(file);
 }
+//#ClientRecievingThreadE
 
-//Sending signal to pi
+//THREAD// sending signal to pi
+//#ClientSendingThreadB
 void *thread_sendSignal(void *arg) {
-	while(1) {
+	for(;;) {
 		if(sendState) {
 			printf("%d\n", sendState);
 			sendState = 0;
@@ -89,3 +96,4 @@ void *thread_sendSignal(void *arg) {
 		}
 	}
 }
+//#ClientSendingThreadE
