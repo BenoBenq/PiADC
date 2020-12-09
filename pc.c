@@ -18,6 +18,7 @@ void *thread_sendSignal(void *arg);
 
 int main (int argc, char *argv[])
 {
+	//#ClientSocketB
 	//Socket setup
 	int result, len;
 	struct sockaddr_in address;
@@ -31,8 +32,9 @@ int main (int argc, char *argv[])
 		perror("ERROR: couldn't connect!");
 		exit(1);
 	}
-	//
+	//#ClientSocketE
 
+	//#ClientStartThreadB
 	//Start threads
 	pthread_t recieveThread;
 	pthread_t sendThread;
@@ -61,9 +63,11 @@ int main (int argc, char *argv[])
 	printf("Closing Socket!\n");
 	close(sockfd);
 	exit(0);
+	//#ClientStartThreadE
 }
 
 //THREAD// recieving data from pi
+//#ClientRecievingThreadB
 void *thread_recieveData(void *arg) {
 	int recieve;
 	FILE *file = fopen("recieve.d", "w");
@@ -74,8 +78,10 @@ void *thread_recieveData(void *arg) {
 	}
 	fclose(file);
 }
+//#ClientRecievingThreadE
 
 //THREAD// sending signal to pi
+//#ClientSendingThreadB
 void *thread_sendSignal(void *arg) {
 	for(;;) {
 		if(sendState) {
@@ -85,3 +91,4 @@ void *thread_sendSignal(void *arg) {
 		}
 	}
 }
+//#ClientSendingThreadE

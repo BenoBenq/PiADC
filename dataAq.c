@@ -8,12 +8,13 @@
 void *shared_memory_point = (void *) 0;
 struct shm_structure *shmB;
 int shmid;
-
+//#SharedMemoryStrucB
 //shared memory structure
 //TODO put into own header file
 struct shm_structure {
 	int data;
 };
+//#SharedMemoryStrucE
 
 //SPI strucure
 struct spi_setting spi_set;
@@ -30,13 +31,14 @@ int main() {
 	sem_id = semget(   (key_t) 1133 ,  1  ,  0666 | IPC_CREAT );
 	set_semvalue();
 
-
+	//#SPISettingB
 	//set SPI device configs
 	spi_set.device = "/dev/spidev0.0";
 	spi_set.mode = 0;
 	spi_set.bitsPerWord = 8;
 	spi_set.speed = 1000000;
 	spi_set.delay = 0;
+	//#SPISettingE
 	unsigned char data[3];
 	//open SPI device on RPi
 	fd = spiOpen(spi_set);
@@ -49,6 +51,7 @@ int main() {
 
 	for(;;) {
 		//send and recieve bytes to/from ADC
+		//#ReadSPIdeviceB
 		data[0] = 1; 			//1
 		data[1] = 0b10000000;	//selects first input of ADC
 		data[2] = 0;			//-
@@ -64,6 +67,7 @@ int main() {
 		(void) semaphore_p();	//ask for access
 		shmB->data = a2dVal;
 		(void) semaphore_v();	//free access to shared memory
+		//#ReadSPIdeviceE
 	}
 }
 

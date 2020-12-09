@@ -23,6 +23,7 @@ struct shm_structure {
 
 
 int main() {
+	//#ServerSocketB
 	//Socket setup
 	int server_sockfd;
 	int server_len, client_len;
@@ -44,7 +45,9 @@ int main() {
 	client_len = sizeof(client_address);  // can this be wrong ??
 	client_sockfd = accept(server_sockfd, (struct sockaddr *)&client_address, &client_len);
 	printf("Connected\n");
+	//#ServerSocketE
 
+	//#ServerStartThreadB
 	//Start threads
 	pthread_t readSHMthread;
 	pthread_t LEDthread;
@@ -56,8 +59,9 @@ int main() {
 	}
 
 	close(client_sockfd);
+	//#ServerStartThreadE
 }
-
+//#ServerSendingThreadB
 //THREAD// read the sheared memory and send to pc.c
 void *thread_read_shm(void *arg) {
 	//shared memory initialization
@@ -79,9 +83,11 @@ void *thread_read_shm(void *arg) {
 		usleep(100);
 		(void) semaphore_v();
 	}
+	//#ServerSendingThreadE
 }
 
 //THREAD// turn LED on when recieving correct signal
+//#ServerRecievingThreadB
 void *thread_TurnOnLED(void *arg) {
 	int gpio_pin = 5;
 	char recieve[10];
@@ -102,3 +108,4 @@ void *thread_TurnOnLED(void *arg) {
 	}
 
 }
+//#ServerRecievingThreadE
