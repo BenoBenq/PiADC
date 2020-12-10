@@ -49,7 +49,7 @@ int main() {
 	shmB = (struct shm_structure *)shared_memory_point;
 
 	for(;;) {
-    //send and recieve bytes to/from ADC
+    	//send and recieve bytes to/from ADC
 		//#ReadSPIdeviceB
 		int *shmPtr = shmB->data;
 		(void) semaphore_p();  //ask for access
@@ -58,14 +58,14 @@ int main() {
 			data[1] = 0b10000000; //selects first input of ADC
 			data[2] = 0;          //0
 			spiWriteRead(fd, data, sizeof(data), spi_set);
-      //merge the incomming data
+      		//merge the incomming data
 			int a2dVal = 0;
 			a2dVal = data[1] << 8;
 			a2dVal |=  data[2];
-      
+
 			printf("%d\n", a2dVal);
-      //Save in secured shared memory
-	    *shmPtr = a2dVal;
+      		//Save in secured shared memory
+	    	*shmPtr = a2dVal;
 			shmPtr++;
 		}
 		(void) semaphore_v(); //free access to shared memory

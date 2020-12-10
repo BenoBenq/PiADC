@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2020.8.2)  9 DEC 2020 21:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2020.8.2)  9 DEC 2020 23:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1581,13 +1581,13 @@ File: lstmisc.sty 2018/09/02 1.7 (Carsten Heinz)
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]) (../pc.c) (../pc.c
 [2]) (../pi.c) (../pc.c [3]) (../pc.c) (../pi.c [4]) (../dataAq.c) (../pi.c)
-[5] (../dataAq.c) (../dataAq.c)
-<schematic.png, id=356, 1068.99374pt x 779.91376pt>
+[5] (../dataAq.c) (../dataAq.c [6])
+<schematic.png, id=478, 1068.99374pt x 779.91376pt>
 File: schematic.png Graphic file (type png)
 <use schematic.png>
 Package pdftex.def Info: schematic.png  used on input line 219.
 (pdftex.def)             Requested size: 427.58992pt x 311.95998pt.
- [6] [7 <./schematic.png>]
+ [7 <./schematic.png>]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 224.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 224.
  (./project.aux)
@@ -1601,10 +1601,10 @@ Package logreq Info: Writing requests to 'project.run.xml'.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 224.
  ) 
 Here is how much of TeX's memory you used:
- 41937 strings out of 492615
- 773442 string characters out of 6131391
+ 41959 strings out of 492615
+ 773723 string characters out of 6131391
  1391458 words of memory out of 5000000
- 44814 multiletter control sequences out of 15000+600000
+ 44819 multiletter control sequences out of 15000+600000
  552054 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,8n,80p,9110b,2383s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1615,10 +1615,10 @@ ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on project.pdf (7 pages, 190994 bytes).
+Output written on project.pdf (7 pages, 192503 bytes).
 PDF statistics:
- 592 PDF objects out of 1000 (max. 8388607)
- 569 compressed objects within 6 object streams
- 434 named destinations out of 1000 (max. 500000)
+ 612 PDF objects out of 1000 (max. 8388607)
+ 589 compressed objects within 6 object streams
+ 451 named destinations out of 1000 (max. 500000)
  18 words of extra memory for PDF output out of 10000 (max. 10000000)
 
