@@ -18,7 +18,8 @@ void *thread_TurnOnLED(void *arg);
 void *thread_read_shm(void *arg);
 
 struct shm_structure {
-	int data[10];
+	unsigned int data[10];
+	unsigned int time_stamp[10];
 };
 
 
@@ -65,32 +66,61 @@ int main() {
 //THREAD// read the sheared memory and send to pc.c
 void *thread_read_shm(void *arg) {
 	//shared memory initialization
-	void *shared_memory_point = (void *) 0;
-	struct shm_structure *shmB;
-	int shmid;
+	void *shared_memory_point1 = (void *) 0;
+	void *shared_memory_point2 = (void *) 0;
+	struct shm_structure *shmB1, *shmB2;
+	int shmid1, shmid2;
 
-	shmid = shmget((key_t)1243, sizeof(struct shm_structure), 0666 | IPC_CREAT);
-	shared_memory_point = shmat(shmid, (void *)0, 0);
-	shmB = (struct shm_structure *)shared_memory_point;
+	//initialize shared memory 1
+	shmid1 = shmget((key_t)1234, sizeof(struct shm_structure), 0666 | IPC_CREAT);
+	shared_memory_point1 = shmat(shmid1, (void *)0, 0);
+	shmB1 = (struct shm_structure *)shared_memory_point1;
 
-	//initialize semaphore
-	sem_id = semget(   (key_t) 1133 ,  1  ,  0666 | IPC_CREAT );
+	//initialize shared memory 2
+	shmid2 = shmget((key_t)1243, sizeof(struct shm_structure), 0666 | IPC_CREAT);
+	shared_memory_point2 = shmat(shmid2, (void *)0, 0);
+	shmB2 = (struct shm_structure *)shared_memory_point2;
 
-	int data[10];
+	//initialize semaphore 1
+	int sem_id1 = semget(   (key_t) 1133 ,  1  ,  0666 | IPC_CREAT );
+
+	//initialize semaphore 2
+	int sem_id2 = semget(   (key_t) 3311 ,  1  ,  0666 | IPC_CREAT );
+
+	unsigned int data[20];
 	for(;;) {
-		int *ptr = data;
-		int *shmPtr = shmB->data;
+		unsigned int *DataPtr = data;
+		(void) semaphore_p(sem_id2);
+		unsigned int *shmPtr2 = shmB2->data;
+		unsigned int *timePtr2 = shmB2->time_stamp;
 		//get data from shared memory, then send to client
-		(void) semaphore_p();
-		while(shmPtr < &shmB->data[10]) {
-			*ptr = *shmPtr;
-			ptr++;
-			shmPtr++;
+		while(shmPtr2 < &shmB2->data[10]) {
+			*DataPtr = *timePtr2;
+			DataPtr++;
+			*DataPtr = *shmPtr2;
+			DataPtr++;
+			timePtr2++;
+			shmPtr2++;
 		}
-
+		(void) semaphore_v(sem_id2);
 		write(client_sockfd, data, sizeof(data));
-		usleep(100);
-		(void) semaphore_v();
+
+		DataPtr = data;
+		(void) semaphore_p(sem_id1);
+		unsigned int *shmPtr1 = shmB1->data;
+		unsigned int *timePtr1 = shmB1->time_stamp;
+		//get data from shared memory, then send to client
+		while(shmPtr1 < &shmB1->data[10]) {
+			*DataPtr = *timePtr1;
+			DataPtr++;
+			*DataPtr = *shmPtr1;
+			DataPtr++;
+			timePtr1++;
+			shmPtr1++;
+		}
+		(void) semaphore_v(sem_id1);
+		write(client_sockfd, data, sizeof(data));
+
 	}
 	//#ServerSendingThreadE
 }

@@ -16,13 +16,13 @@
 
 
 
-static int set_semvalue(void);
-static void del_semvalue(void);
-static int semaphore_p(void);
-static int semaphore_v(void);
-int sem_id;
+static int set_semvalue(int sem_id);
+static void del_semvalue(int sem_id);
+static int semaphore_p(int sem_id);
+static int semaphore_v(int sem_id);
+//int sem_id;
 
-static int set_semvalue(void)
+static int set_semvalue(int sem_id)
 {
     union semun sem_union;
     sem_union.val = 1;
@@ -30,7 +30,7 @@ static int set_semvalue(void)
     return(1);
 }
 
-static void del_semvalue(void)
+static void del_semvalue(int sem_id)
 {
     union semun sem_union;
     if (semctl(sem_id, 0, IPC_RMID, sem_union) == -1) {
@@ -40,7 +40,7 @@ static void del_semvalue(void)
 	}
 }
 
-static int semaphore_p(void)
+static int semaphore_p(int sem_id)
 {
     struct sembuf sem_b;
     sem_b.sem_num = 0;
@@ -51,7 +51,7 @@ static int semaphore_p(void)
 	semop(sem_id, &sem_b, 1);
 }
 
-static int semaphore_v(void)
+static int semaphore_v(int sem_id)
 {
     struct sembuf sem_b;
     int answer;

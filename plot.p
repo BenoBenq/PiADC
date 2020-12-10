@@ -1,5 +1,5 @@
 set term x11 1 noraise
 set yrange [0:1023]
-plot '< tail -n 10000 /home/bent/Coding/C/Pi/Project/recieve.d'
+plot '< tail -n 10000 /home/bent/Coding/C/Pi/Project/recieve.d' using :2
 pause "0.1"
 reread
