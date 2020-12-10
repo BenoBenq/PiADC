@@ -10,7 +10,7 @@
 #include <errno.h>
 #include <unistd.h>
 #define BCM2708_PERI_BASE        0x3F000000
-#define TIMER_BASE                (BCM2708_PERI_BASE + 0x3000) 
+#define TIMER_BASE                (BCM2708_PERI_BASE + 0x3000)
 
 #define PAGE_SIZE (4*1024)
 #define BLOCK_SIZE (4*1024)
@@ -60,6 +60,17 @@ void setup_tmr()
 
    // Always use volatile pointer!
    tmr = (volatile unsigned *)tmr_map;
+}
 
-
+void wait(int usec) {
+    setup_tmr();
+    volatile unsigned * tmrpoint;
+    volatile unsigned * CLO;
+    *tmr = *tmr | 15;           //set control to 0
+    tmrpoint = tmr;
+    tmrpoint++;
+    CLO = tmrpoint;
+    tmrpoint++; tmrpoint++; tmrpoint++;
+    *tmrpoint = *CLO + usec;
+    for(;;) { if(*tmr == 2) {break;}}
 }

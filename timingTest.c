@@ -34,7 +34,7 @@ void main() {
     char buff[100];
     //itoa(8, &buff);
     //printf("%s\n", buff);
-    setup_tmr();
+    //setup_tmr();
     /*
     volatile unsigned *CS, *CLO, *C0;
     CS = tmr;
@@ -44,15 +44,22 @@ void main() {
     tmr++;
     tmr++;
     C0 = tmr;*/
-    unsigned int CS, CLO, C0;
+    /*
+    unsigned int CS, CLO, C1;
     volatile unsigned * tmrpoint;
-    //tmrpoint=tmr;      //Read timer registers
-    //CS=*tmrpoint;  tmrpoint++;
-    //CLO=*tmrpoint; tmrpoint++;
-    //tmrpoint++;
-    //*tmrpoint = CLO + 1234;
-    //C0 = *tmrpoint;
+    tmrpoint=tmr;      //Read timer registers
+    *tmrpoint=*tmrpoint | 15;
+    tmrpoint++;
+    CLO=*tmrpoint; tmrpoint++;
+    tmrpoint++;tmrpoint++;
+    *tmrpoint = CLO + 10000000;
 
+    for(;;) { if(*tmr == 2) {break;}}
+    */
+    wait(1000000);
+    printf("Hello\n");
+    //C0 = *tmrpoint;
+    /*
 
     //printf("%d\n", *C0);
     //printf("%#010x  %#010x  %#010x\n", CS, CLO, C0);
@@ -74,10 +81,11 @@ void main() {
         CLO=*tmrpoint;
         tmrpoint++;
         tmrpoint++;
+        tmrpoint++;
         printf("%#010x\n", tmrpoint);
-        if(start) { *tmrpoint = CLO + 1000; start=0; }
-        C0=*tmrpoint;
-        printf("CS: %#010x     CLO: %d     C0: %d\n", CS, CLO, C0);
+        //if(start) { *tmrpoint = CLO + 1000000; start=0; }
+        C1=*tmrpoint;
+        printf("CS: %#010x     CLO: %d     C1: %d\n", CS, CLO, C1);
         sleep(1);
     }
     //printf("%d\n", *C0);
@@ -87,7 +95,7 @@ void main() {
     printf("CS: %#010x     CLO: %d     C0: %d\n", *CS, *CLO, *C0);
     //printf("%d\n", *C0);
     */
-    C0 = 0;
+    //C0 = 0;
     //printf("%d\n", *C0);
     /*
     while(1) {
