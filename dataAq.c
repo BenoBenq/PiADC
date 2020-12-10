@@ -49,7 +49,7 @@ int main() {
 	shmB = (struct shm_structure *)shared_memory_point;
 
 	for(;;) {
-    	//send and recieve bytes to/from ADC
+    //send and recieve bytes to/from ADC
 		//#ReadSPIdeviceB
 		int *shmPtr = shmB->data;
 		(void) semaphore_p();  //ask for access
