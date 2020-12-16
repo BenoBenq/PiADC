@@ -5,8 +5,9 @@
 
 #include "./header/timer.h"
 
-#define sampleSize 1000
-#define multiplier 10000
+//#define sampleSize 1000
+//#define multiplier 10000
+#define numberOfSamples 4
 /*
 void itoa(int In, char *outp) {
     int k; int Nb, cmp;
@@ -31,145 +32,82 @@ void itoa(int In, char *outp) {
 }*/
 
 void main() {
+    int sampleSizeList[numberOfSamples] = {10, 100, 1000, 10000};
+    int multiplierList[numberOfSamples] = {10000, 1000, 100, 10};
     char buff[100];
-    //itoa(8, &buff);
-    //printf("%s\n", buff);
-    //setup_tmr();
-    /*
-    volatile unsigned *CS, *CLO, *C0;
-    CS = tmr;
-    *CS = *CS | 15;
-    tmr++;
-    CLO = tmr;
-    tmr++;
-    tmr++;
-    C0 = tmr;*/
-    /*
-    unsigned int CS, CLO, C1;
-    volatile unsigned * tmrpoint;
-    tmrpoint=tmr;      //Read timer registers
-    *tmrpoint=*tmrpoint | 15;
-    tmrpoint++;
-    CLO=*tmrpoint; tmrpoint++;
-    tmrpoint++;tmrpoint++;
-    *tmrpoint = CLO + 10000000;
 
-    for(;;) { if(*tmr == 2) {break;}}
-    */
-    wait(1000000);
-    printf("Hello\n");
-    //C0 = *tmrpoint;
-    /*
-
-    //printf("%d\n", *C0);
-    //printf("%#010x  %#010x  %#010x\n", CS, CLO, C0);
-    char buffer[100];
-    //itoa(*CS, &buffer);
-    //printf("CS: %#010x     CLO: %d     C0: %d\n", CS, CLO, C0);
-    //printf("%d\n", *C0);
-    unsigned int val;
-    //C0 = CLO + 1000;
-    //printf("%d\n", *C0);
-    int start = 1;
-    while(1) {
-
-        tmrpoint=tmr;      //Read timer registers
-        printf("%#010x ", tmrpoint);
-        CS=*tmrpoint;
-        tmrpoint++;
-        printf("%#010x ", tmrpoint);
-        CLO=*tmrpoint;
-        tmrpoint++;
-        tmrpoint++;
-        tmrpoint++;
-        printf("%#010x\n", tmrpoint);
-        //if(start) { *tmrpoint = CLO + 1000000; start=0; }
-        C1=*tmrpoint;
-        printf("CS: %#010x     CLO: %d     C1: %d\n", CS, CLO, C1);
-        sleep(1);
-    }
-    //printf("%d\n", *C0);
-    /*
-    sleep(4);
-    //printf("%d\n", *C0);
-    printf("CS: %#010x     CLO: %d     C0: %d\n", *CS, *CLO, *C0);
-    //printf("%d\n", *C0);
-    */
-    //C0 = 0;
-    //printf("%d\n", *C0);
-    /*
-    while(1) {
-        if(*tmr != 0) {
-            printf("Ya\n");
-        }
-    }*/
-
-
-
-    /*
+    setup_tmr();
+    //volatile unsigned *waitPtr = tmr;
     tmr++;
     struct timeval tv_before, tv_after;
 
-    int i, j;
-    FILE *fp = fopen("timingResult.dat", "a");
-    fprintf(fp, "Waited _ usec, mean of %d: _ +- _ (tics from system timer from bcm2835)\nWaited _ usec, mean of %d: _ +- _ (useconds measured by linux time)\n\n", sampleSize, sampleSize);
-    for(j = 0; j < 10; j = j+1) {
-        int times0[sampleSize] = {0};
-        int times1[sampleSize] = {0};
-        int *ptr0 = times0;
-        int *ptr1 = times1;
-        for(i = 0; i < sampleSize; i++) {
-            int tm;
-            tm = *tmr;
-            usleep(j*multiplier);
-            tm -= *tmr;
-            tm = -tm;
-            times0[i] = tm;
+    int i, j, k, m;
+    FILE *fp = fopen("timingResult.dat", "w");
+    //fprintf(fp, "Waited _ usec, mean of %d: _ +- _ (tics from system timer from bcm2835)\nWaited _ usec, mean of %d: _ +- _ (useconds measured by linux time)\n\n", sampleSize, sampleSize);
+    for(k = 0; k < numberOfSamples; k++) {
+        int sampleSize = sampleSizeList[k];
+        int multiplier = multiplierList[k];
+        int times[4][sampleSize];
+        memset(times, 0, 4*sampleSize*sizeof(int));
+        for(j = 0; j < 10; j++) {
+            for(i = 0; i < sampleSize; i++) {
+                int tm;
+                //take time of usleep with system counter
+                tm = *tmr;
+                usleep(j*multiplier);
+                tm -= *tmr;
+                tm = -tm;
+                times[0][i] = tm;
+                //take time of usleep with linux system time
+                gettimeofday(&tv_before, NULL);
+                usleep(j*multiplier);
+                gettimeofday(&tv_after, NULL);
+                times[1][i] = (1000000 * tv_after.tv_sec + tv_after.tv_usec) - (1000000 * tv_before.tv_sec + tv_before.tv_usec);
 
-            gettimeofday(&tv_before, NULL);
-            usleep(j*multiplier);
-            gettimeofday(&tv_after, NULL);
-            times1[i] = (1000000 * tv_after.tv_sec + tv_after.tv_usec) - (1000000 * tv_before.tv_sec + tv_before.tv_usec);
-        }
-        int sum0 = 0;
-        while(ptr0 < &times0[sampleSize]) {
-            sum0 += *ptr0;
-            ptr0++;
-        }
-        sum0 = sum0/sampleSize;
-        int sum1 = 0;
-        while(ptr1 < &times1[sampleSize]) {
-            sum1 += *ptr1;
-            ptr1++;
-        }
-        sum1 = sum1/sampleSize;
+                //take time of custom wait with system counter
+                tm = *tmr;
+                wait(j*multiplier, tmr_wait);
+                tm -= *tmr;
+                tm = -tm;
+                times[2][i] = tm;
+                //take time of custom wait with linux system time
+                gettimeofday(&tv_before, NULL);
+                wait(j*multiplier, tmr_wait);
+                gettimeofday(&tv_after, NULL);
+                times[3][i] = (1000000 * tv_after.tv_sec + tv_after.tv_usec) - (1000000 * tv_before.tv_sec + tv_before.tv_usec);
+            }
 
-        float sd0, sd1;
-        ptr0 = times0;
-        while(ptr0 < &times0[sampleSize]) {
-            sd0 += (*ptr0 - sum0)*(*ptr0 - sum0);
-            ptr0++;
-        }
-        ptr1 = times1;
-        while(ptr1 < &times1[sampleSize]) {
-            sd1 += (*ptr1 - sum1)*(*ptr1 - sum1);
-            ptr1++;
-        }
-        //printf("%d\n", sd);
-        sd0 = sqrt(sd0/(sampleSize-1));
-        sd1 = sqrt(sd1/(sampleSize-1));
+            //Calculating the average and standard deviation
+            int sum[4] = {0};
+            float sd[4] = {0};
+            int *ptr[4] = {times[0], times[1], times[2], times[3]};
+            for(m = 0; m < 4; m++){
+                while(ptr[m] < &times[m][sampleSize]) {
+                    sum[m] += *ptr[m];
+                    ptr[m]++;
+                }
+                sum[m] = sum[m]/sampleSize;
+                ptr[m] = times[m];
+                while(ptr[m] < &times[m][sampleSize]) {
+                    sd[m] += (*ptr[m] - sum[m])*(*ptr[m] - sum[m]);
+                    ptr[m]++;
+                }
+                sd[m] = sqrt(sd[m]/(sampleSize-1));
+            }
+            int h;
+            for(h = 0; h < 4; h++) {printf("%d +- %0.3f ",sum[h], sd[h]);} printf("\n");
 
-
-        printf("Waited %d usec, mean of %d: %d +- %f (tics from system timer from bcm2835)\n", j*multiplier, sampleSize, sum0, sd0);
-        printf("Waited %d usec, mean of %d: %d +- %f (useconds measured by linux time)\n\n", j*multiplier, sampleSize, sum1, sd1);
-        fprintf(fp, "%d %d +- %f\n%d %d +- %f\n\n", j*multiplier, sum0, sd0, j*multiplier, sum1, sd1);
-        //printf("The system says %d +- %d usec\n", sum1, sd1);
+            //printf("Waited %d usec, mean of %d: %d +- %f (tics from system timer from bcm2835)\n", j*multiplier, sampleSize, sum0, sd0);
+            //printf("Waited %d usec, mean of %d: %d +- %f (useconds measured by linux time)\n\n", j*multiplier, sampleSize, sum1, sd1);
+            //fprintf(fp, "%d %d +- %f\n%d %d +- %f\n\n", j*multiplier, sum0, sd0, j*multiplier, sum1, sd1);
+            //printf("The system says %d +- %d usec\n", sum1, sd1);
+        }
+        printf("\n");
     }
-    fprintf(fp, "\n\n");
-    */
+    //fprintf(fp, "\n\n");
 
 
 
-    //fclose(fp);
 
+    fclose(fp);
 }

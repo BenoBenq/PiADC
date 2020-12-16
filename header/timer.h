@@ -21,6 +21,7 @@ char *spi0_mem, *spi0_map;
 
 // Timer access
 volatile unsigned *tmr;
+volatile unsigned *tmr_wait;
 
 void setup_tmr()
 {
@@ -60,17 +61,25 @@ void setup_tmr()
 
    // Always use volatile pointer!
    tmr = (volatile unsigned *)tmr_map;
+   tmr_wait = (volatile unsigned *)tmr_map;
 }
 
-void wait(int usec) {
-    setup_tmr();
+void wait(int usec, volatile unsigned *tmrOri) {
+    volatile unsigned * tmr;
     volatile unsigned * tmrpoint;
     volatile unsigned * CLO;
+    volatile unsigned * C1;
+    tmr = tmrOri;
     *tmr = *tmr | 15;           //set control to 0
     tmrpoint = tmr;
     tmrpoint++;
     CLO = tmrpoint;
     tmrpoint++; tmrpoint++; tmrpoint++;
-    *tmrpoint = *CLO + usec;
-    for(;;) { if(*tmr == 2) {break;}}
+    C1 = tmrpoint;
+    if(usec > 0) {
+        *tmrpoint = *CLO + usec;
+    } else {
+        *tmrpoint = *CLO + 1;
+    }
+    for(;;) { /*printf("%d %d %d\n", *tmr, *CLO, *C1); */if(*tmr & 0b10) {break;}}
 }
