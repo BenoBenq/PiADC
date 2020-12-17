@@ -13,8 +13,8 @@ void signalEnd(int signo) {
     gSystem->ProcessEvents();
 }
 
-int main(int argc, char* argv[]) {
-    TApplication rootapp("spectrum", &argc, argv);
+void plotRoot() {
+    //TApplication rootapp("spectrum", &argc, argv);
     signal(SIGINT, signalEnd);
     TCanvas* c1 = new TCanvas();
     TGraph* gr1 = new TGraph();
@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
     gr1->SetMaximum(1024);
     gr1->Draw();
 
-    int number_of_lines = 5000;
+    int number_of_lines = 8000;
     char data[number_of_lines][1000];
     int values[number_of_lines];
     int time_value, value;
