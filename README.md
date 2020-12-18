@@ -8,14 +8,14 @@ Change IP address in pc.c file and run make.
 To run the program execute the following programs.
 On the Pi:
 ```
-./dataAq
+sudo ./dataAq
 ```
 ```
 sudo ./pi
 ```
 On the local pc:
 ```
-./pc on local pc
+./pc
 ```
 Then you should see the readings of the ADC in the dataAq terminal und nothing happening in the other both.
 To start the plotting of the data simply type ```p``` into the pc terminal and hit enter.
